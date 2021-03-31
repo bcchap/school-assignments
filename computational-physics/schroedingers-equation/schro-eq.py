@@ -39,7 +39,7 @@ for x in energy:
     transc_out.append(transc(x))
 
 #visually determine where the expected roots should occur to determine ranges for optimize.root_scalar
-"""transc_plot = plt.figure()
+"""plt.figure()
 plt.suptitle("Energy vs Transcendental Output")
 plt.plot(energy,  transc_out, label = "Transcendental Output")
 #plt.vlines(r1.root, -150, 100, label = "Energy = $3.288 * 10^-13$ J", color = "r")
@@ -48,7 +48,7 @@ plt.xlabel("Energy E [J]")
 plt.ylabel("Transcendental Output [Unitless]")
 plt.grid()
 plt.legend(loc="best")
-plt.show(transc_plot)"""
+plt.show()"""
 
 #determine roots (where the transcendental output is = 0) numerically
 r1 = optimize.root_scalar(transc, bracket=[.2*10**(-12),.6*10**(-12)],method='bisect', xtol=10**(-16))
@@ -61,7 +61,7 @@ print("First Energy Root satisfies the transcendental equation up to ", transc(r
 print("Second Energy Root satisfies the transcendental equation up to ", transc(r2.root), "from 0")
 
 #confirm and visualize energy roots in relation to transcendental output
-transc_plot = plt.figure()
+plt.figure()
 plt.suptitle("Energy vs Transcendental Output")
 plt.plot(energy,  transc_out, label = "Transcendental Output")
 plt.vlines(r1.root, -150, 100, label = "Energy = $3.288 * 10^-13$ J", color = "r")
@@ -69,7 +69,7 @@ plt.vlines(r2.root, -150, 100, label = "Energy = $1.195 * 10^-12$ J", color = "g
 plt.xlabel("Energy E [J]")
 plt.ylabel("Transcendental Output [Unitless]")
 plt.legend(loc="best")
-plt.show(transc_plot)
+plt.show()
 
 
 
@@ -177,7 +177,7 @@ for x in psi3_x:
     x = Decimal(x)
     psi3_e2.append(G2*Decimal(math.e)**(Decimal(-alpha[1])*x))
 
-fin_well = plt.figure()
+plt.figure()
 plt.suptitle("Finite Well Wave Function")
 plt.hlines(u_0,-L,0)
 plt.hlines(u_0,L,2*L)
@@ -192,7 +192,7 @@ plt.plot(psi3_x, psi3_e2,'tab:blue')
 plt.xlabel("Length [km]")
 plt.ylabel("Energy [J]")
 plt.legend()
-plt.show(fin_well)
+plt.show()
 
 #infinite well comparison
 psi_length = np.linspace(0,L,STEP)
@@ -215,7 +215,7 @@ for l in psi_length:
    psi_inf_3.append(psi_inf_eq(3,l))
    psi_inf_4.append(psi_inf_eq(4,l))
 
-"""inf_well = plt.figure()
+"""plt.figure()
 plt.suptitle("Infinite Well Wave Function")
 fig, subpl = plt.subplots(5,1)
 subpl[3].plot(psi_length, psi_inf_1,'tab:orange', label = "n = 1")
@@ -228,9 +228,9 @@ subpl[3].legend(loc = "upper left")
 subpl[2].legend(loc = "upper left")
 subpl[1].legend(loc = "upper left")
 subpl[0].legend(loc = "upper left")
-plt.show(inf_well)"""
+plt.show()"""
 
-fin_and_inf_well = plt.figure()
+plt.figure()
 plt.suptitle("Finite and Infinite Well Wave Function")
 plt.plot(psi1_x, psi1_e1, 'tab:red', label = "Finite Wave Function for Energy = $3.288 * 10 ^ {-13}$ J")
 plt.plot(psi1_x, psi1_e2, 'tab:pink', label = "Finite Wave Function for Energy = $1.195 * 10 ^ {-12}$ J")
@@ -246,7 +246,4 @@ plt.ylim(-7.0*10**7,2*10**7)
 plt.xlabel("Length [km]")
 plt.ylabel("Energy [J]")
 plt.legend(loc = "best")
-plt.show(fin_and_inf_well)
-
-
-    
+plt.show()

@@ -1,26 +1,43 @@
+#%%
+""" 
+Code Author: B. C. Chap
+Course: UCD PHY 104B Computational Methods of Mathematical Physics
+Instructor: D. Ferenc
+Date: Winter Quarter 2021
+Textbook: Computational Methods in Physics and Engineering by Samuel S. M. Wong
+
+Topic:
+    Methods of Least Squares - The Central Limit Theorem
+References:
+    Chapter 6 Methods of Least Squares
+    Problem 6-3:
+        Use a random number generator with an even distribution in the range [—1, +1] 
+        to produce n = 6 values and store the sum as x. Collect 1000 such sums and 
+        plot their distribution. Compare the results with a normal distribution of the 
+        same mean and variance as the x collected. Calculate the chi^2 value. Repeat the 
+        calculations with n = 50. Compare the two chi^2 obtained.
+Goal:
+    Repeat the same process for Problem 6-3 with a Mickey-mouse shaped distribution instead of even
+"""
+
+#%% IMPORTING MODULES:
+
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import norm
-import scipy.stats as stats
-import math
-
 plt.style.use('Solarize_Light2') 
 
-""" Use a random number generator with an even distribution in the range [—1, +1] 
-to produce n = 6 values and store the sum as x. Collect 1000 such sums and 
-plot their distribution. Compare the results with a normal distribution of the 
-same mean and variance as the x collected. Calculate the chi^2 value. Repeat the 
-calculations with n = 50. Compare the two chi^2 obtained.
-
-A Mickey-mouse shaped distribution of your own choice (be creative).""" 
-
+#%% INITIALIZING VALUES:
+    
 lower_bound = -2
 upper_bound = 2
-n=1
+n = 1 #number of values to sum, changing this value determines the distribution
 nrand = 10**4
 nsum = 10**4
 BINS = 20
 
+#%% DEFINING THE SAMPLE DISTRIBUTION:
+    
 x = np.random.uniform(lower_bound, upper_bound, nrand)
 y = np.random.uniform(lower_bound, upper_bound, nrand)
 
@@ -33,7 +50,8 @@ rear = ((x+1)**2 + (y-1)**2)
 inrear = (rear <=.25)
 out = np.logical_not(inhead) & np.logical_not(inlear) & np.logical_not(inrear)
 
-
+#%% VISUALIZING THE SAMPLE DISTRIBUTION:
+    #FROM UNIFORM AND MICKEY CONSTRAINED SAMPLES
 plt.figure(figsize =(10,7))
 plt.plot(x[out], y[out], ".", label = "outside")
 plt.plot(x[inhead], y[inhead], "c.", label = "inside")
@@ -45,7 +63,8 @@ plt.ylabel('Random Generated Numbers between [{},{}]'.format(lower_bound, upper_
 plt.suptitle('Randomly Generated x and y Values\n within a Mickey Mouse Distribution'.format(), fontsize=22)
 plt.show()
 
-
+#%% REPEATEDLY RANDOMLY GENERATING THE SAMPLE DISTRIBUTION:
+    
 xray, yray, heads, inheads, lears, inlears, rears, inrears, out, inside = ([] for i in range(10))
 for i in range(nsum):
     xray.append(np.random.uniform(lower_bound, upper_bound, n))
@@ -64,6 +83,9 @@ sigma = np.sqrt(np.var(inside))
 fx = np.linspace((np.min(inside)), (np.max(inside)), 10**3)
 fy = norm.pdf(fx, mu, sigma)
 
+#%% VISUALIZING SUMMED SAMPLES: 
+    #FROM UNIFORM AND MICKEY CONSTRAINED SAMPLES
+    
 plt.figure(figsize=(10,7))
 plt.hist(inside, BINS, label = "Sum of n = {} values within\n Mickey Mouse Distribution".format(n), edgecolor='black', color = "skyblue", density = True)
 plt.plot(fx,fy, linewidth = 2, label = "Ideal Normal Distribution\n with $\mu$ {:.2f} and $\sigma$ = {:.2f}".format(mu, sigma))

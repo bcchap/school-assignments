@@ -1,13 +1,29 @@
+#%%
+""" 
+Code Author: B. C. Chap
+Course: UCD PHY 104B Computational Methods of Mathematical Physics
+Instructor: D. Ferenc
+Date: Winter Quarter 2021
+Textbook: Computational Methods in Physics and Engineering by Samuel S. M. Wong
+
+Topic:
+    Numerical Integration - The Monte Carlo Method
+References:
+    Chapter 2 Integration and Differentiation
+    Section 2-6 Multidimensional integrals and improper integrals
+Goal: 
+    Utilize the Monte Carlo Method to integrate the arcsin identity, an improper integral (eq 2-47)
+    unlabeled eq following 2-42: rho(r) = triple integral exp(-r)/(8*pi) from -1 to 1
 """
-PHY 104B Project 3 Part C
-Bottreypich Cassey Chap
-March 5, 2021
-Winter Quarter 2021
-"""
+
+#%% IMPORTING MODULES:
+ 
 import random
 import matplotlib.pyplot as plt
 import numpy as np
 plt.style.use("bmh")
+
+#%% EXAMINING THE CONVERGENCE OF THE MONTE CARLO METHOD:
 
 SEED = int(1)
 random.seed(SEED)
@@ -81,6 +97,8 @@ for i in ITERATIONS:
 print("# of Values Thrown Away: {}".format(THROWAWAY))
 PCT_ERR = abs((ASIN_MEANS[-1]-TRU_VAL)/TRU_VAL)
 print("Percent Error: {}%".format(PCT_ERR*100))
+
+#%% VISUALIZING THE CONVERGENCE OF THE MONTE CARLO METHOD:
 
 monte_carlo_c = plt.figure()
 plt.plot(ITERATIONS[0:len(ASIN_MEANS)], ASIN_MEANS, label='I vs Iterations')

@@ -1,15 +1,33 @@
-"""
-PHY 104B Project 3 Part A
-Bottreypich Cassey Chap
-March 5, 2021
-Winter Quarter 2021
+#%%
+""" 
+Code Author: B. C. Chap
+Course: UCD PHY 104B Computational Methods of Mathematical Physics
+Instructor: D. Ferenc
+Date: Winter Quarter 2021
+Textbook: Computational Methods in Physics and Engineering by Samuel S. M. Wong
+
+Topic:
+    Numerical Integration - The Monte Carlo Method
+References:
+    Chapter 2 Integration and Differentiation
+    Section 2-1 Numerical integrations
+    Section 2-5 Monte Carlo integration
+    Box 2-4: Monte Carlo integration for normal probability function
+Goal: 
+    Follow Box 2-4, utilize the Monte Carlo Method to integrate the normal probability function (eq 2-35) from 0 to 1
+    eq 2-35: A(x) = 1/(sqrt(2*pi)) integral exp(-t**2/2)dt from -inf to inf
+    following: A(x=1) = sqrt(2/pi) integral exp(-t**2/2)dt from 0 to 1 = A_1 below
 """
 
+#%% IMPORTING MODULES:
+ 
 import random
 import matplotlib.pyplot as plt
 import numpy as np
 plt.style.use("bmh")
 
+#%% EXAMINING THE CONVERGENCE OF THE MONTE CARLO METHOD:
+    
 TOLERANCE = 10**-5
 INITIAL_N = int(40)
 N = int(40)
@@ -65,7 +83,8 @@ for i in ITERATIONS:
 PCT_ERR = abs((NPF_MEANS[-1]-A_1)/A_1)
 print("Percent Error: {}%".format(PCT_ERR*100))
 
-
+#%% VISUALIZING THE CONVERGENCE OF THE MONTE CARLO METHOD:
+    
 monte_carlo_a = plt.figure(figsize = (10,6))
 plt.plot(ITERATIONS[0:len(NPF_MEANS)], NPF_MEANS, label='A(x = 1) vs Iterations')
 plt.axhline(A_1,color='k',label='Exact A(x = 1): {}'.format(A_1))
@@ -75,6 +94,8 @@ plt.xlabel('Iteration')
 plt.ylabel('A(x = 1)')
 plt.show()
 
+#%% EXAMINING THE DISTRIBUTION OF THE RANDOMLY GENERATED VALUES:
+    
 """
 plt.figure()
 plt.plot(np.arange(655360),rand_x_0)

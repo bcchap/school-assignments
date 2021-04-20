@@ -1,3 +1,22 @@
+#%%
+""" 
+Code Author: B. C. Chap
+Course: UCD PHY 104B Computational Methods of Mathematical Physics
+Instructor: D. Ferenc
+Date: Winter Quarter 2021
+Textbook: Computational Methods in Physics and Engineering by Samuel S. M. Wong
+
+Topic: Particle Confined to a Potential Well    
+Goal: 
+    Solve Shroedinger's Equation for a particle in a finite 1-dimensional 
+    rectangular potential well where L = 7 fm and u_0 = 10 MeV
+    find all possible energy levels and their corresponding wave functions
+    then compare to the infinite potential well
+
+"""
+
+#%% IMPORTING MODULES:
+    
 import math
 import matplotlib.pyplot as plt
 import numpy as np
@@ -7,15 +26,7 @@ from scipy import integrate
 from decimal import Decimal, getcontext
 plt.style.use('Solarize_Light2') 
 
-""" Solving the Shroedinger's Equation for a particle in a finite 1-dimensional 
-rectangular potential well where L = 7 fm and u_0 = 10 MeV, find all possible
-energy levels and their corresponding wave functions, then compare to the 
-infinite potential well.
-"""
-
-
-
-#DETERMINING ENERGY LEVELS
+#%% DETERMINING ENERGY LEVELS:
 
 #define constants
 u_0 = (10*10**6) / (6.242*10**18)  #eV to J
@@ -39,7 +50,7 @@ for x in energy:
     transc_out.append(transc(x))
 
 #visually determine where the expected roots should occur to determine ranges for optimize.root_scalar
-"""plt.figure()
+plt.figure()
 plt.suptitle("Energy vs Transcendental Output")
 plt.plot(energy,  transc_out, label = "Transcendental Output")
 #plt.vlines(r1.root, -150, 100, label = "Energy = $3.288 * 10^-13$ J", color = "r")
@@ -48,7 +59,7 @@ plt.xlabel("Energy E [J]")
 plt.ylabel("Transcendental Output [Unitless]")
 plt.grid()
 plt.legend(loc="best")
-plt.show()"""
+plt.show()
 
 #determine roots (where the transcendental output is = 0) numerically
 r1 = optimize.root_scalar(transc, bracket=[.2*10**(-12),.6*10**(-12)],method='bisect', xtol=10**(-16))
@@ -71,9 +82,7 @@ plt.ylabel("Transcendental Output [Unitless]")
 plt.legend(loc="best")
 plt.show()
 
-
-
-#DETERMINING CORRESPONDING WAVE FUNCTIONS FOR ENERGY LEVELS
+#%% DETERMINING CORRESPONDING WAVE FUNCTIONS FOR ENERGY LEVELS
 
 #defining precision
 getcontext().prec = 30
@@ -194,7 +203,8 @@ plt.ylabel("Energy [J]")
 plt.legend()
 plt.show()
 
-#infinite well comparison
+#%% INFINITE WELL COMPARISON:
+    
 psi_length = np.linspace(0,L,STEP)
 
 def E_inf(n):

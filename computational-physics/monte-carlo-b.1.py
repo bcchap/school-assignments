@@ -1,18 +1,35 @@
+#%%
+""" 
+Code Author: B. C. Chap
+Course: UCD PHY 104B Computational Methods of Mathematical Physics
+Instructor: D. Ferenc
+Date: Winter Quarter 2021
+Textbook: Computational Methods in Physics and Engineering by Samuel S. M. Wong
+
+Topic:
+    Numerical Integration - The Monte Carlo Method
+References:
+    Chapter 2 Integration and Differentiation
+    Section 2-6 Multidimensional integrals and improper integrals
+    Box 2-5: Three dimensional Monte Carlo integration
+Goal: 
+    Follow Box 2-5, utilize the Monte Carlo Method to integrate the Yukawa charge distribution for r = x, y, z from -1 to 1
+    unlabeled eq following 2-42: rho(r) = triple integral exp(-r)/(8*pi) from -1 to 1
 """
-PHY 104B Project 3 Part B
-Bottreypich Cassey Chap
-March 5, 2021
-Winter Quarter 2021
-"""
+
+#%% IMPORTING MODULES:
+ 
 import random
 import matplotlib.pyplot as plt
 import numpy as np
 plt.style.use("bmh")
 
+#%% EXAMINING THE CONVERGENCE OF THE MONTE CARLO METHOD:
+    
 #Initialize the random number generator
 TOLERANCE = 10**-5
 
-#Let N be starting number of poits for integration
+#Let N be starting number of points for integration
 INITIAL_N = int(100)
 N = int(100)
 N_list = []
@@ -82,6 +99,8 @@ for i in ITERATIONS:
 
 PCT_ERR = abs((Q_MEANS[-1]-Q_ACCEPTED)/Q_ACCEPTED)
 print("Percent Error: {}%".format(PCT_ERR*100))
+
+#%% VISUALIZING THE CONVERGENCE OF THE MONTE CARLO METHOD:
 
 monte_carlo_b = plt.figure(figsize = (10,6))
 plt.plot(ITERATIONS[0:len(Q_MEANS)], Q_MEANS, label='Q vs Iterations')

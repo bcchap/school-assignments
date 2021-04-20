@@ -1,7 +1,29 @@
+#%%
+""" 
+Code Author: B. C. Chap
+Course: UCD PHY 104B Computational Methods of Mathematical Physics
+Instructor: D. Ferenc
+Date: Winter Quarter 2021
+Textbook: Computational Methods in Physics and Engineering by Samuel S. M. Wong
+
+Topic:
+    Special Functions - Harmonic Oscillator
+References:
+    Chapter 4 Special Functions, Section 4-1 Hermite polynomials and harmonic oscillator
+    Box 4-1: Coefficients of Hermite polynomials by recursion relation
+Goal: 
+    Follow Box 4-1 to determine the non-vanishing coefficients aka the Hermite polynomials
+    Plot the relation between the polynomials and excitation level in relation to a harmonic oscillator
+    Examine the limits of the Hermite polynomials by increasing the excitation level of the oscillator
+"""
+
+#%% IMPORTING MODULES:
+    
 import numpy as np
 import matplotlib.pyplot as plt
 import math
 
+#%% INITIALIZING THE 2-D ARRAY:
 NDMN = 11
 NARY = np.zeros((NDMN+1,NDMN+1))
 #b) define coefficients
@@ -21,6 +43,8 @@ for k in np.arange(0, NDMN+1):
         NARY[n+1][k] = coeff_NARY()
         
 print(NARY)
+
+#%% DEFINING THE RECURSION RELATION:
 
 def hermite_POLY(n,rho):
         H_n = 0
@@ -44,6 +68,9 @@ for x in rho:
 #print(H_3)
 #print(H_4)
 
+#%% VISUALIZING THE RELATION:
+    #BETWEEN THE HERMITE POLYNOMIALS
+    
 plt.figure()    
 #plt.plot(rho, H_0, label="$H_0/{⍴}^3$")
 plt.plot(rho, H_1, label="$H_1/{1}^3$")
@@ -59,7 +86,9 @@ plt.grid()
 plt.legend()
 plt.show()
 
-
+#%% VISUALIZING THE RELATION:
+    #BETWEEN HARMONIC OSCILLATOR WAVE FUNCTIONS
+    
 def psi(n,rho):
     return (1 / (np.sqrt(2**n*math.factorial(n)*np.sqrt(np.pi)))) * np.exp(-(rho**2) / 2)
 
@@ -90,6 +119,8 @@ plt.title("1-D Harmonic Oscillator Wave Function $Ψ_n(⍴)$ for n = 0, 1, 2, 3,
 plt.grid()
 plt.legend()
 plt.show()
+
+#%% EXAMINING INCREASING EXCITATION LEVELS:
 
 H_4_compare = []
 H_4_compare.append(hermite_POLY(4,x))
